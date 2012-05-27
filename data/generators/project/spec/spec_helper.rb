@@ -6,10 +6,3 @@ RSpec.configure do |conf|
   #conf.include Rack::Test::Methods
   #conf.include Capybara::DSL
 end
-
-def app
-  ##
-  # You can handle all padrino applications using instead:
-  #   Padrino.application
-  Dara.tap { |app| p app  }
-end
