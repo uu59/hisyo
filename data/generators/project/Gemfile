@@ -1,0 +1,10 @@
+source :rubygems
+
+gem "sinatra"
+gem "sinatra-contrib", :require => "sinatra/contrib"
+gem "tilt"
+#gem "hisyo"
+
+group :test do
+  gem "rspec"
+end
