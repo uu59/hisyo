@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["k@uu59.org"]
   gem.description   = %q{Create simple Sinatra project template}
   gem.summary       = %q{Create simple Sinatra project template}
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/uu59/hisyo"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
