@@ -9,11 +9,20 @@ describe "Hisyo.generate_project" do
     configru = "#{@approot}/config.ru"
     @mock.class_eval do
       include Rack::Test::Methods
-      RU = configru
+      @configru = configru
+
+      def self.configru
+        @configru
+      end
+
       def app
-        Rack::Builder.parse_file(RU).first
+        Rack::Builder.parse_file(self.class.configru).first
       end
     end
+  end
+
+  def genapp(&block)
+    @mock.new.instance_eval &block
   end
 
   after(:each) do
@@ -21,9 +30,16 @@ describe "Hisyo.generate_project" do
   end
 
   it "should rackup" do
-    @mock.new.instance_eval do
+    genapp do
       get "/"
       last_response.body.should == "Hello, MyApp!"
+    end
+  end
+
+  it "controllers" do
+    genapp do
+      get "/hi/uu59"
+      last_response.body.should == "Hi, uu59!"
     end
   end
 end

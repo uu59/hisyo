@@ -1,5 +1,8 @@
 module Hisyo
   class Application < Sinatra::Base
+    def self.controllers(&block)
+      instance_eval &block
+    end
   end
 
   def self.env
