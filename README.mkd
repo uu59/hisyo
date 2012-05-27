@@ -2,31 +2,18 @@ Hisyo is a thin wrapper for your Sinatra project
 
     $ gem install hisyo
     $ rbenv rehash; rehash; # if necessary
-    $ hisyo -v -r ~/myapp
-    create:  lib/
-    create:  config/
-    create:  views/
-    create:  public/
-    create:  spec/
-    create:  app/views/
-    create:  app/assets/
-    create:  db/
-    create:  tmp/
-    create:  log/
-    copy to: spec/spec_helper.rb
-    copy to: spec/hello_spec.rb
-    copy to: config.ru
-    copy to: config/boot.rb
-    copy to: Gemfile
-    copy to: app/helpers.rb
-    copy to: app/app.rb
+    $ hisyo -r ~/myapp
+    Complete.
+      $ cd ~/myapp
+      $ rackup (or `rspec spec/`, `vim app/helpers.rb`, etc)
     $ cd ~/myapp
-    $ tree -F
-    .
+    $ tree -Fa
+    ├── .gitignore
     ├── Gemfile
     ├── app/
     │   ├── app.rb
     │   ├── assets/
+    │   ├── controllers.rb
     │   ├── helpers.rb
     │   └── views/
     ├── config/
@@ -42,7 +29,7 @@ Hisyo is a thin wrapper for your Sinatra project
     ├── tmp/
     └── views/
 
-    11 directories, 7 files
+    11 directories, 9 files
     $ rackup
     [2012-05-28 02:24:32] INFO  WEBrick 1.3.1
     [2012-05-28 02:24:32] INFO  ruby 1.9.3 (2012-02-16) [x86_64-linux]

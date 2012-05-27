@@ -25,6 +25,10 @@ module Hisyo
         klass.cp(file, path)
       end
     end
+
+    puts "Complete."
+    puts "  $ cd #{root}/"
+    puts '  $ rackup (or `rspec spec/`, `vim app/helpers.rb`, etc)'
   end
 end
 
