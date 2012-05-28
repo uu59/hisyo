@@ -1,28 +1,31 @@
 require "spec_helper"
 
 describe "Hisyo generated app" do
-  before(:each) do
-    generate_app(
-      :root => @approot,
-    )
-    @mock = Class.new
-    configru = "#{@approot}/config.ru"
-    @mock.class_eval do
-      include Rack::Test::Methods
-      @configru = configru
-
-      def self.configru
-        @configru
-      end
-
-      def app
-        Rack::Builder.parse_file(self.class.configru).first
-      end
-    end
-  end
-
   def genapp(&block)
-    @mock.new.instance_eval &block
+    pid = fork do 
+      generate_app(
+        :root => @approot,
+      )
+      @mock = Class.new
+      configru = "#{@approot}/config.ru"
+      bootrb = "#{@approot}/config/boot.rb"
+      @mock.class_eval do
+        require bootrb
+
+        include Rack::Test::Methods
+        @configru = configru
+
+        def self.configru
+          @configru
+        end
+
+        def app
+          Rack::Builder.parse_file(self.class.configru).first
+        end
+      end
+      @mock.new.instance_eval &block
+    end
+    Process.wait pid
   end
 
   after(:each) do

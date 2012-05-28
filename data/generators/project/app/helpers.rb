@@ -1,4 +1,4 @@
-Hisyo::Application.helpers do
+MyApp.helpers do
   def hi(word)
     "Hi, #{word}!"
   end
