@@ -1,7 +1,10 @@
 require "rubygems"
 require "bundler/setup"
 Bundler.require(:default, :test)
-SimpleCov.start if ENV["COVERAGE"]
+if ENV["COVERAGE"]
+  require "simplecov"
+  SimpleCov.start
+end
 require File.expand_path("../../lib/hisyo.rb", __FILE__)
 
 
