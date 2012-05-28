@@ -1,8 +1,8 @@
 require "spec_helper"
 
-describe "Hisyo.generate_project" do
+describe "Hisyo generated app" do
   before(:each) do
-    Hisyo.generate_project(
+    generate_app(
       :root => @approot,
     )
     @mock = Class.new
@@ -26,7 +26,7 @@ describe "Hisyo.generate_project" do
   end
 
   after(:each) do
-    system("rm -rf #{@approot}")
+    FileUtils.rm_rf @approot
   end
 
   it "should rackup" do

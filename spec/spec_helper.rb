@@ -35,4 +35,10 @@ RSpec.configure do |conf|
     $stderr = orig_stderr
   end
 
+  def generate_app(options = {})
+    out,err = capture_io do
+      Hisyo.generate_project(options)
+    end
+  end
+
 end

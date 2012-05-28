@@ -2,11 +2,11 @@ require "spec_helper"
 
 describe "Hisyo.generate_project" do
   after(:each) do
-    system("rm -rf #{@approot}")
+    FileUtils.rm_rf @approot
   end
 
   it "should same data/ and approot/" do
-    Hisyo.generate_project(
+    generate_app(
       :root => @approot,
     )
     dest= Dir.glob("#{@approot}/**/*", File::FNM_DOTMATCH).find_all{|f| File.file?(f)}.map{|f| f.gsub(@approot, "")}
@@ -16,7 +16,7 @@ describe "Hisyo.generate_project" do
   end
 
   it "should not create files when :dryrun option given" do
-    Hisyo.generate_project(
+    generate_app(
       :root => @approot,
       :dryrun => true,
     )
@@ -24,20 +24,18 @@ describe "Hisyo.generate_project" do
   end
 
   it "should skip if file exists" do
-    out,err = capture_io do
-      Hisyo.generate_project(
-        :root => @approot,
-        :verbose => true,
-      )
-    end
-    out.split("\n").map{|line| line.gsub(/\e\[\d+m/, "")}.map{|line| line.split(": ").first}.uniq.should == ["create", "copy to"]
+    generate_app(
+      :root => @approot,
+      :verbose => true,
+    )
 
-    out,err = capture_io do
-      Hisyo.generate_project(
-        :root => @approot,
-        :verbose => true,
-      )
-    end
-    out.split("\n").map{|line| line.gsub(/\e\[\d+m/, "")}.map{|line| line.split(": ").first}.uniq.should == ["skip"]
+    out, err = generate_app(
+      :root => @approot,
+      :verbose => true,
+    )
+    messages = out.split("\n").map{|line| line.gsub(/\e\[\d+m/, "")}.map{|line| line.split(": ").first}.uniq
+    messages.include?("copy to").should be_false
+    messages.include?("create").should be_false
+    messages.include?("skip").should be_true
   end
 end
