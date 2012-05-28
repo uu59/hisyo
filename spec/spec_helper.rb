@@ -39,7 +39,7 @@ RSpec.configure do |conf|
   end
 
   def generate_app(options = {})
-    out,err = capture_io do
+    capture_io do
       Hisyo.generate_project(options)
     end
   end
