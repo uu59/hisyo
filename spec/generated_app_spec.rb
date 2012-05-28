@@ -32,7 +32,7 @@ describe "Hisyo generated app" do
   it "should rackup" do
     genapp do
       get "/"
-      last_response.body.should == "Hello, MyApp!"
+      last_response.body.rstrip.should == "Hello, MyApp!"
     end
   end
 

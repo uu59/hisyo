@@ -1,5 +1,6 @@
 Hisyo::Application.controllers do
   get "/hi/:name" do
-    "Hi, #{params[:name] || "Joe"}!"
+    # `hi` is helper at app/helpers.rb
+    hi(params[:name] || "joe")
   end
 end

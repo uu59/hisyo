@@ -1,6 +1,6 @@
 Hisyo::Application.helpers do
-  def hello(word)
-    "Hello, #{word}!"
+  def hi(word)
+    "Hi, #{word}!"
   end
 end
 
