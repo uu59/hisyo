@@ -1,3 +1,5 @@
+[![Travis CI Build Status](https://secure.travis-ci.org/uu59/hisyo.png?branch=master)](http://travis-ci.org/uu59/hisyo)
+
 Hisyo is a thin wrapper for your Sinatra project
 
     $ gem install hisyo
