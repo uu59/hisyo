@@ -8,4 +8,5 @@ group :test do
   gem "rspec"
   gem "rack-test", :require => "rack/test"
   gem "simplecov"
+  gem "rake" # for Travis CI
 end
