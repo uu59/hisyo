@@ -30,5 +30,40 @@ module Hisyo
     puts "  $ cd #{root}/"
     puts '  $ rackup (or `rspec spec/`, `vim app/helpers.rb`, etc)'
   end
+
+  def self.generate_assistance(options = {})
+    root = options[:root] || Dir.pwd
+    kind = options[:kind]
+    skelton = File.expand_path("../../../data/generators/assistance", __FILE__)
+    case kind
+    when "travis"
+      Dir.glob("#{skelton}/travis/**/*", File::FNM_DOTMATCH) do |file|
+        next if File.basename(file).match(/^[.]+$/)
+        dest = File.join(root, file.gsub(skelton + "/travis", ""))
+        create(file, dest, :email => "hoge@example.com")
+      end
+    else
+      raise "Unknown"
+    end
+  end
+
+  def self.create(src, dest, values = {})
+    content = render(src, values)
+    dest.gsub!(/\.erubis$/, "")
+    FileUtils.mkdir_p File.dirname(dest)
+    if File.exists?(dest) && gets.upcase != "Y"
+      return "pass"
+    end
+    File.open(dest, "w"){|f| f.write content }
+  end
+
+  def self.render(tpl, values = {})
+    if tpl.match(/\.erubis$/)
+      template = Tilt.new(tpl)
+      template.render(Object.new, values)
+    else
+      File.read(tpl)
+    end
+  end
 end
 

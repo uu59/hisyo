@@ -1,6 +1,7 @@
 source :rubygems
 
 gem "sinatra", :require => "sinatra/base"
+gem "erubis"
 gem "tilt"
 gem "sinatra-contrib", :require => "sinatra/contrib"
 

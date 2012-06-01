@@ -3,6 +3,7 @@ GEM
   specs:
     backports (2.5.3)
     diff-lcs (1.1.3)
+    erubis (2.7.0)
     eventmachine (0.12.10)
     multi_json (1.3.5)
     rack (1.4.1)
@@ -40,6 +41,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  erubis
   rack-test
   rake
   rspec
