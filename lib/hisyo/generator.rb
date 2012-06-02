@@ -22,7 +22,13 @@ module Hisyo
           opts.on('-r VAL', '--root=VAL', 'Application root directory'){|v| options[:root] = v}
 
           opts.on('-k VAL', '--kind=VAL', 'What to generate'){|v| options[:kind] = v}
-          opts.parse!(@argv)
+          begin
+            opts.parse!(@argv)
+          rescue OptionParser::InvalidOption => e
+            $stderr.puts e
+            $stderr.puts opts.help
+            exit 1
+          end
         end
         options
       end

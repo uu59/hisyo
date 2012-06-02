@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe "Hisyo generated app" do
+describe "generated app" do
   def genapp(&block)
     pending "jruby does not support fork" if defined? JRUBY_VERSION
     pid = fork do 

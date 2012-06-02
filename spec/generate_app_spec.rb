@@ -5,7 +5,7 @@ describe "Hisyo::Generator app" do
     FileUtils.rm_rf @approot
   end
 
-  it "should same data/ and approot/" do
+  it "should same data/project/ and approot/" do
     generate(
       :root => @approot,
     )
