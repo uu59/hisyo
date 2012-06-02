@@ -1,5 +1,6 @@
 module Hisyo
   class Generator
+    require "#{File.dirname(__FILE__)}/generator/util.rb"
     include Util
 
     attr_reader :params, :options
