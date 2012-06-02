@@ -41,7 +41,8 @@ module Hisyo
 
       def command(cmd)
         begin
-          IO.popen(cmd){|io| io.read.strip}
+          ret = %x!#{cmd}!
+          return ret if $?.exitstatus == 0
         rescue Errno::ENOENT
           nil
         end
