@@ -8,5 +8,12 @@ module Hisyo
       }.merge(@params)
       copy(src)
     end
+
+    HELP ||= []
+    HELP << <<-TEXT
+    -k travis: for Travis CI files
+      * email=foo@example.com 
+      Notification email address(default is `git config user.email`)
+    TEXT
   end
 end

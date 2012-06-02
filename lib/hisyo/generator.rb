@@ -4,6 +4,9 @@ module Hisyo
     include Util
 
     attr_reader :params, :options
+
+    HELP ||= []
+
     def initialize(argv = [])
       @params = {}
       @argv = argv
@@ -25,6 +28,15 @@ module Hisyo
           opts.on('-r VAL', '--root=VAL', 'Application root directory'){|v| options[:root] = v}
 
           opts.on('-k VAL', '--kind=VAL', 'What to generate'){|v| options[:kind] = v}
+
+          opts.on_tail("-h", "--help", "Show this message") do
+            puts opts
+            puts
+            puts "Hisyo assistance help e.g. `hisyo -k foo bar=baz`"
+            puts HELP.join("\n")
+            exit
+          end
+
           begin
             opts.parse!(@argv)
           rescue OptionParser::InvalidOption => e
