@@ -1,11 +1,14 @@
 module Hisyo
   class Generator
+    attr_reader :params, :options
     def initialize(argv = [])
+      @params = {}
       @argv = argv
+      parse
     end
 
-    def options
-      @options ||= begin
+    def parse
+      @options = begin
         options = {
           :dryrun => false,
           :color => false,
@@ -23,6 +26,11 @@ module Hisyo
         end
         options
       end
+
+      @argv.each do |kv|
+        k,v = kv.split("=")
+        @params[k] = v
+      end
     end
 
     def run
@@ -34,7 +42,7 @@ module Hisyo
     end
 
     def gen_project
-      root = options[:root] || Dir.pwd
+      root = options[:root]
       src_dir = File.expand_path("../../../data/generators/project", __FILE__)
       copy(src_dir)
 
