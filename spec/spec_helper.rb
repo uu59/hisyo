@@ -6,7 +6,7 @@ if ENV["COVERAGE"]
   SimpleCov.start
 end
 require File.expand_path("../../lib/hisyo.rb", __FILE__)
-
+Dir["./spec/support/**/*.rb"].each{|f| require f}
 
 RSpec.configure do |conf|
   conf.before(:all) do
@@ -38,10 +38,11 @@ RSpec.configure do |conf|
     $stderr = orig_stderr
   end
 
-  def generate(options = {})
+  def generate(options = {}, params = {})
     capture_io do
       gen = Hisyo::Generator.new
       gen.instance_variable_set(:@options, options)
+      gen.instance_variable_set(:@params, params)
       gen.run
     end
   end

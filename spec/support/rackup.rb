@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe "generated app" do
+shared_examples_for "rackapp" do
   def genapp(&block)
     pending "jruby does not support fork" if defined? JRUBY_VERSION
     pid = fork do 
