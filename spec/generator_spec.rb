@@ -34,6 +34,8 @@ describe "Hisyo::Generator basic" do
   end
 
   it "should same data/project/ and approot/" do
+    # https://github.com/rubinius/rubinius/blob/17aa445116/lib/find.rb#L39
+    pending "Rubinius's Find.find raise LocalJumpError if no block given" if defined?(Rubinius)
     generate(
       :root => @approot,
     )
@@ -44,6 +46,8 @@ describe "Hisyo::Generator basic" do
   end
 
   it "should not create files when :dryrun option given" do
+    # https://github.com/rubinius/rubinius/blob/17aa445116/lib/find.rb#L39
+    pending "Rubinius's Find.find raise LocalJumpError if no block given" if defined?(Rubinius)
     generate(
       :root => @approot,
       :dryrun => true,
