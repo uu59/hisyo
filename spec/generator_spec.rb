@@ -68,4 +68,11 @@ describe "Hisyo::Generator basic" do
     messages.grep(/^create/).should be_empty
     messages.grep(/^skip/).length.should == messages.length
   end
+
+  it "should merge exists content" do
+    generate(:root => @approot)
+    File.open("#{@approot}/test.txt", "w"){|f| f.write "World"}
+    generate(:root => @approot, :kind => "test")
+    File.read("#{@approot}/test.txt").rstrip.should == "Hello, World!"
+  end
 end

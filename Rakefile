@@ -7,5 +7,6 @@ task :default => :spec
 
 desc "Run all examples"
 RSpec::Core::RakeTask.new(:spec) do |t|
+  ENV["SPEC_OPTS"] = "-c -f d"
   #t.ruby_opts = %w[-w]
 end

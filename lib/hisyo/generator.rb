@@ -1,11 +1,12 @@
+Dir.glob("#{File.dirname(__FILE__)}/generator/*.rb") do |file|
+  require file
+end
+
 module Hisyo
   class Generator
-    require "#{File.dirname(__FILE__)}/generator/util.rb"
-    include Util
+    include Hisyo::Util
 
     attr_reader :params, :options
-
-    HELP ||= []
 
     def initialize(argv = [])
       @params = {}
@@ -72,9 +73,16 @@ module Hisyo
       puts '  $ rackup (or `rspec spec/`, `vim app/helpers.rb`, etc)'
     end
 
+    def generators
+      methods.grep(/^generate_/)
+    end
+
     def gen_assistance
-      # TODO:
-      run_travis
+      unless method = generators.find{|g| g.to_s == "generate_#{options[:kind]}"}
+        raise "unknown"
+      end
+      __send__(method)
     end
   end
 end
+

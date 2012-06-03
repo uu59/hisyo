@@ -38,9 +38,7 @@ shared_examples_for "rackapp" do
       get "/"
       last_response.body.rstrip.should == "Hello, MyApp!"
     end
-  end
 
-  it "controllers" do
     genapp do
       get "/hi/uu59"
       last_response.body.should == "Hi, uu59!"
