@@ -76,11 +76,19 @@ RSpec.configure do |conf|
   end
 
   def rake(rakefile = nil, &block)
-    pending "jruby does not support fork" if defined? JRUBY_VERSION
+    if defined? JRUBY_VERSION
+      if respond_to(:pending)
+        pending "jruby does not support fork" 
+      else
+        return
+      end
+    end
     rakefile ||= File.join(@approot, "Rakefile")
     pid = fork do
       Dir.chdir(File.dirname(rakefile))
-      Rake.application.instance_eval do
+      app = Rake::Application.new
+      Rake.application = app
+      app.instance_eval do
         @rakefiles.clear
         @rakefiles << rakefile
         init
