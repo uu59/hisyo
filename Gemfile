@@ -10,4 +10,7 @@ group :test do
   gem "rack-test", :require => "rack/test"
   gem "simplecov", :require => false
   gem "rake" # for Travis CI
+
+  # for sprockets generator
+  gem "sprockets"
 end

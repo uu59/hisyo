@@ -47,5 +47,48 @@ RSpec.configure do |conf|
     end
   end
 
+  def genapp(&block)
+    pending "jruby does not support fork" if defined? JRUBY_VERSION
+    pid = fork do 
+      generate(
+        :root => @approot,
+      )
+      @mock = Class.new
+      configru = "#{@approot}/config.ru"
+      bootrb = "#{@approot}/config/boot.rb"
+      @mock.class_eval do
+        require bootrb
+
+        include Rack::Test::Methods
+        @configru = configru
+
+        def self.configru
+          @configru
+        end
+
+        def app
+          Rack::Builder.parse_file(self.class.configru).first
+        end
+      end
+      @mock.new.instance_eval &block
+    end
+    Process.wait pid
+  end
+
+  def rake(rakefile = nil, &block)
+    pending "jruby does not support fork" if defined? JRUBY_VERSION
+    rakefile ||= File.join(@approot, "Rakefile")
+    pid = fork do
+      Dir.chdir(File.dirname(rakefile))
+      Rake.application.instance_eval do
+        @rakefiles.clear
+        @rakefiles << rakefile
+        init
+        load_rakefile
+        self.instance_eval &block
+      end
+    end
+    Process.waitpid pid
+  end
 
 end
