@@ -80,7 +80,9 @@ RSpec.configure do |conf|
     rakefile ||= File.join(@approot, "Rakefile")
     pid = fork do
       Dir.chdir(File.dirname(rakefile))
-      Rake.application.instance_eval do
+      app = Rake::Application.new
+      Rake.application = app
+      app.instance_eval do
         @rakefiles.clear
         @rakefiles << rakefile
         init

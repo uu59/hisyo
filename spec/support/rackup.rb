@@ -18,6 +18,7 @@ shared_examples_for "rackapp" do
   end
 
   it "should rake run" do
+    pending "jruby does not support fork" if defined? JRUBY_VERSION
     lambda { rake{} }.should_not raise_error
   end
 end
