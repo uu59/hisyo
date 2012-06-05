@@ -15,7 +15,8 @@ class MyApp < Sinatra::Base
   end
 
   configure :development do
-    register Sinatra::Reloader
+    MyApp.reset!
+    use Rack::Reloader
   end
 
   def self.setup
