@@ -9,11 +9,13 @@ shared_examples_for "rackapp" do
     genapp do
       get "/"
       last_response.body.rstrip.should == "Hello, MyApp!"
-    end
 
-    genapp do
       get "/hi/uu59"
       last_response.body.should == "Hi, uu59!"
+
+      get "/admin/secret"
+      last_response.status.should == 403
+      last_response.body.should == "Secret zone"
     end
   end
 
