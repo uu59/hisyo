@@ -2,4 +2,3 @@
 
 # sprockets
 gem 'sprockets', '~> 2.0'
-gem "sprockets-helpers"
