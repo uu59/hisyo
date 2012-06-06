@@ -19,12 +19,13 @@ module Hisyo
         options = {
           :dryrun => false,
           :color => false,
-          :verbose => false,
+          :verbose => true,
           :root => Dir.pwd,
         }
         OptionParser.new do |opts|
           opts.on('-n', '--dryrun', 'Do not actually run'){|v| options[:dryrun] = true}
           opts.on('-v', '--verbose', 'Verbose mode'){|v| options[:verbose] = true}
+          opts.on('-q', '--quite', 'Non-verbose mode'){|v| options[:verbose] = false}
           opts.on('-c', '--color', 'Colorise'){|v| options[:color] = true}
           opts.on('-r VAL', '--root=VAL', 'Application root directory'){|v| options[:root] = v}
 
