@@ -49,10 +49,10 @@ RSpec.configure do |conf|
 
   def genapp(&block)
     pending "jruby does not support fork" if defined? JRUBY_VERSION
+    generate(
+      :root => @approot,
+    )
     pid = fork do 
-      generate(
-        :root => @approot,
-      )
       @mock = Class.new
       configru = "#{@approot}/config.ru"
       bootrb = "#{@approot}/config/boot.rb"
