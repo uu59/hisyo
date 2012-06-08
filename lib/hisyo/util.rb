@@ -18,9 +18,7 @@ module Hisyo
         dest = File.join(options[:root], file.gsub(src, ""))
         dir = is_dir ? dest : File.dirname(dest)
         if File.exists?(dest)
-          if options[:verbose]
-            puts color("skip: ", :yellow) + dest + (is_dir ? "/" : "")
-          end
+          skip(dest)
           next
         end
         FileUtils.mkdir_p(dir) unless options[:dryrun]
@@ -36,22 +34,16 @@ module Hisyo
           content = File.read(file)
         end
 
-        if options[:verbose]
-          if File.exist?(dest)
-            puts color("merge: ", :magenta) + dest
-          else
-            puts color("create: ", :green) + dest
-          end
+        if File.exist?(dest)
+          merge(dest)
+        else
+          create(dest)
         end
 
         unless options[:dryrun]
           File.open(dest, "w"){|f| f.write content}
         end
       end
-    end
-
-    def color(text, color = :green)
-      options[:color] ? "\e[1m\e[#{COLORS[color] || "33"}m#{text}\e[0m" : text
     end
 
     def command(cmd)
@@ -61,6 +53,22 @@ module Hisyo
       rescue Errno::ENOENT
         nil
       end
+    end
+
+    def color(text, color = :green)
+      options[:color] ? "\e[1m\e[#{COLORS[color] || "33"}m#{text}\e[0m" : text
+    end
+
+    def create(dest)
+      puts color("create: ", :green) + dest if @options[:verbose]
+    end
+
+    def skip(dest)
+      puts color("skip: ", :yellow) + dest + (is_dir ? "/" : "") if @options[:verbose]
+    end
+
+    def merge(dest)
+      puts color("merge: ", :magenta) + dest if @options[:verbose]
     end
   end
 end
