@@ -2,9 +2,6 @@ require "fileutils"
 require "optparse"
 require "find"
 
-dir = File.dirname(__FILE__)
-$LOAD_PATH.unshift(dir) if $LOAD_PATH.grep(dir).empty?
-
 module Hisyo
   DIR = File.expand_path("../../data/generators", __FILE__)
   HELP = []
@@ -13,8 +10,11 @@ module Hisyo
     HELP << str
   end
 
-  autoload :Util, "hisyo/util"
-  autoload :Generator, "hisyo/generator"
-  autoload :CLI, "hisyo/cli"
-  autoload :Version, "hisyo/version"
+  dir = File.dirname(__FILE__)
+  $LOAD_PATH.unshift(dir) if $LOAD_PATH.grep(dir).empty?
 end
+
+require "hisyo/util"
+require "hisyo/generator"
+require "hisyo/cli"
+require "hisyo/version"

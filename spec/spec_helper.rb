@@ -3,7 +3,7 @@ require "bundler/setup"
 Bundler.require(:default, :test)
 if ENV["COVERAGE"]
   require "simplecov"
-  SimpleCov.start
+  SimpleCov.start "test_frameworks"
 end
 require File.expand_path("../../lib/hisyo.rb", __FILE__)
 Dir["./spec/support/**/*.rb"].each{|f| require f}
