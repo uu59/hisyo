@@ -74,7 +74,7 @@ module Hisyo
     end
 
     def skip(dest)
-      puts color("skip: ", :yellow) + dest + (is_dir ? "/" : "") if @options[:verbose]
+      puts color("skip: ", :yellow) + dest if @options[:verbose]
     end
 
     def merge(dest)
