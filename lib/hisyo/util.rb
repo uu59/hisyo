@@ -30,8 +30,18 @@ module Hisyo
           content = template.render(Object.new, @params) do
             File.exist?(dest) ? File.read(dest) : ""
           end
+          if File.exist?(dest) && File.file?(dest)
+            tmp = template.render(Object.new, @params) { "" }.strip
+            if File.read(dest)[tmp]
+              skip(dest)
+              next
+            end
+          end
         else
           content = File.read(file)
+          if File.exist?(dest) && File.read(dest)[content]
+            skip(dest)
+          end
         end
 
         if File.exist?(dest)

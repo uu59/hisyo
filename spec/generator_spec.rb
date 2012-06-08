@@ -71,8 +71,18 @@ describe "Hisyo::Generator basic" do
 
   it "should merge exists content" do
     generate(:root => @approot)
-    File.open("#{@approot}/test.txt", "w"){|f| f.write "World"}
+    File.open("#{@approot}/test.txt", "w"){|f| f.write "original"}
     generate(:root => @approot, :kind => "test")
-    File.read("#{@approot}/test.txt").rstrip.should == "Hello, World!"
+    File.read("#{@approot}/test.txt").rstrip.should == "original\ntemplate"
+    File.read("#{@approot}/foo.txt").rstrip.should == "foo"
+  end
+
+  it "should dedup merge" do
+    generate(:root => @approot)
+    generate(:root => @approot, :kind => "test")
+    File.read("#{@approot}/foo.txt").rstrip.should == "foo"
+
+    generate(:root => @approot, :kind => "test")
+    File.read("#{@approot}/foo.txt").rstrip.should == "foo"
   end
 end
