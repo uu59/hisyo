@@ -21,7 +21,7 @@ class MyApp < Sinatra::Base
 
   def self.setup
     %w!config lib app!.each do |dir|
-      Dir.glob("#{root}/#{dir}/**/*.rb") do |file|
+      Dir.glob("#{root}/#{dir}/**{,/*/**}/*.rb") do |file|
         require file
       end
     end
