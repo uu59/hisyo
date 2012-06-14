@@ -20,7 +20,7 @@ class MyApp < Sinatra::Base
   end
 
   def self.setup
-    %w!config lib app!.each do |dir|
+    %w!config vendor lib app!.each do |dir|
       Dir.glob("#{root}/#{dir}/**{,/*/**}/*.rb") do |file|
         require file
       end
