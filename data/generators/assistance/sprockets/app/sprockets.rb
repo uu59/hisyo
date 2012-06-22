@@ -1,3 +1,10 @@
+=begin
+Setup Sprockets and define `get /assets/*` route by default.
+You can visit /assets/foo for get compiled asset
+
+See also: https://github.com/sstephenson/sprockets
+=end
+
 MyApp.class_eval do
   set :sprockets, Sprockets::Environment.new(root)
   set :assets_prefix, '/assets'
