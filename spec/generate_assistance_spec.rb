@@ -32,5 +32,15 @@ describe "Hisyo::Generator assistance" do
       end
       Dir.entries("#{approot}/public/assets").should_not be_empty
     end
+
+    it "should serve unknown media type" do
+      path = File.join(@approot, "app/assets/stylesheets/mime.aaa")
+      File.open(path, "w"){|f| f.write "hello"}
+      genapp do
+        get "/assets/mime.aaa"
+        last_response.body.should == "hello"
+        last_response.headers["Content-Type"].should =~ %r"text/plain"
+      end
+    end
   end
 end
