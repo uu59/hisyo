@@ -39,10 +39,11 @@ describe "Hisyo::Generator basic" do
     generate(
       :root => @approot,
     )
-    dest = Find.find(@approot).map{|f| f.gsub(@approot, "")}.sort
+    dest = Find.find(@approot)
     src_dir = "#{@root}/data/generators/project"
-    src = Find.find(src_dir).map{|f| f.gsub(src_dir, "")}.sort
-    dest.should == src
+    src = Find.find(src_dir)
+    dest.map{|f| f.gsub(@approot, "")}.sort.should == src.map{|f| f.gsub(src_dir, "")}.sort
+    dest.map{|file| File.stat(file).mode }.should == src.map{|file| File.stat(file).mode }
   end
 
   it "should not create files when :dryrun option given" do
