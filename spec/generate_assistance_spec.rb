@@ -45,12 +45,11 @@ describe "Hisyo::Generator assistance" do
   end
 
   context "console" do
-    let(:kind) { "sprockets" }
+    let(:kind) { "console" }
     include_context "assistance"
 
     it "pry repl" do
-      Pry::CLI.stub(:parse_options)
-      system("#{@approot}/scripts/console")
+      pending "I have no idea to test pry runs correctly"
     end
   end
 end
