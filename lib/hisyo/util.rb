@@ -51,7 +51,9 @@ module Hisyo
         end
 
         unless options[:dryrun]
+          mode = File.stat(file).mode
           File.open(dest, "w"){|f| f.write content}
+          File.chmod(mode, dest)
         end
       end
     end
