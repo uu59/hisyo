@@ -43,4 +43,14 @@ describe "Hisyo::Generator assistance" do
       end
     end
   end
+
+  context "console" do
+    let(:kind) { "sprockets" }
+    include_context "assistance"
+
+    it "pry repl" do
+      Pry::CLI.stub(:parse_options)
+      system("#{@approot}/scripts/console")
+    end
+  end
 end

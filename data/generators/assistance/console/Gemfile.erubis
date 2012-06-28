@@ -1,0 +1,4 @@
+<%= yield %>
+
+# scripts/console
+gem "pry"

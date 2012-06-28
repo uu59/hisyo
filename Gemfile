@@ -13,4 +13,7 @@ group :test do
 
   # for sprockets generator
   gem "sprockets"
+
+  # for console generator
+  gem "pry"
 end
