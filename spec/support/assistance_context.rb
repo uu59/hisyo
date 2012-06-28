@@ -14,4 +14,14 @@ shared_context "assistance" do
   after(:each) do
     FileUtils.rm_rf @approot
   end
+
+  it "add section into --help" do
+    out, err = capture_io do
+      begin
+        Hisyo::CLI.run(%W"--help")
+      rescue SystemExit
+      end
+    end
+    out.split("\n").grep(/-k #{kind}:/).should_not be_empty
+  end
 end
