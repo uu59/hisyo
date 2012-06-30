@@ -48,7 +48,8 @@ MyApp.class_eval do
     end
     asset = settings.sprockets.index.find_asset path
     halt 404, "asset not found '#{path}'" unless asset
-    content_type mime_type(path).nil? ? "text/plain" : File.extname(path)
+    ext = File.extname(path)
+    content_type mime_type(ext).nil? ? "text/plain" : ext
     asset.to_s
   end
 end
